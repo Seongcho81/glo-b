@@ -362,22 +362,11 @@
   .download-buttons {
     display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
   }
-  .store-btn {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: var(--deep-green); color: #fff;
-    border-radius: 16px; padding: 16px 28px;
-    text-decoration: none; transition: all 0.2s;
-    border: 2px solid transparent;
-  }
-  .store-btn:hover { background: var(--mid-green); transform: translateY(-2px); }
-  .store-btn.outline {
-    background: transparent; color: var(--deep-green);
-    border-color: rgba(45,90,27,0.3);
-  }
-  .store-btn.outline:hover { background: rgba(45,90,27,0.05); }
-  .store-icon { font-size: 28px; }
-  .store-text-small { font-size: 10px; opacity: 0.7; letter-spacing: 0.5px; }
-  .store-text-big { font-size: 17px; font-weight: 500; }
+  .store-badges { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .store-badge img { height: 54px; width: auto; transition: all 0.2s; border-radius: 10px; }
+  .store-badge img:hover { transform: translateY(-2px); opacity: 0.9; }
+  .store-badge-disabled { opacity: 0.5; cursor: not-allowed; }
+  .store-badge-disabled img:hover { transform: none; opacity: 0.5; }
   .coming-soon-tag {
     display: inline-block; font-size: 11px; font-weight: 500;
     letter-spacing: 1px; color: var(--sage);
@@ -615,20 +604,19 @@
   <div class="section-tag" style="display:block; text-align:center;">Available Now</div>
   <h2 class="section-title">Start your skin<br>intelligence journey</h2>
   <p class="section-sub">Free to download. No subscription required. Start discovering better skincare today.</p>
-  <div class="download-buttons">
-    <a href="#" class="store-btn">
-      <span class="store-icon">🍎</span>
-      <div>
-        <div class="store-text-small">DOWNLOAD ON THE</div>
-        <div class="store-text-big">App Store</div>
-      </div>
+  <div class="store-badges">
+    <a href="#" class="store-badge">
+      <img 
+        src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" 
+        alt="Download on the App Store"
+      >
     </a>
-    <a href="#" class="store-btn outline">
-      <span class="store-icon">🤖</span>
-      <div>
-        <div class="store-text-small">COMING SOON ON</div>
-        <div class="store-text-big" style="color:var(--deep-green)">Google Play</div>
-      </div>
+    <a href="#" class="store-badge store-badge-disabled" title="Coming Soon">
+      <img 
+        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+        alt="Get it on Google Play"
+        style="height:54px;"
+      >
     </a>
   </div>
   <div class="coming-soon-tag">iOS Available · Android Coming Soon</div>
