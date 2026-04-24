@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glo-b — Skin Intelligence, Redefined</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep-green: #1a3a0f;
+    --mid-green: #2d5a1b;
+    --light-green: #4a7c2e;
+    --sage: #8fad6e;
+    --mint: #b2d8b2;
+    --cream: #f5f0e8;
+    --off-white: #faf7f2;
+    --text-dark: #1a1a1a;
+    --text-muted: #6b6b5e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(45,90,27,0.08);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo img { height: 36px; width: auto; }
+  .nav-logo span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--deep-green); letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 14px; font-weight: 400;
+    color: var(--text-muted); letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--deep-green); }
+  .nav-cta {
+    background: var(--deep-green); color: #fff;
+    border: none; border-radius: 100px;
+    padding: 10px 24px; font-size: 13px; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-cta:hover { background: var(--mid-green); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--deep-green);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 70vw; height: 70vw; max-width: 800px; max-height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,124,46,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -10%; left: -5%;
+    width: 40vw; height: 40vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(143,173,110,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(178,216,178,0.15);
+    border: 1px solid rgba(178,216,178,0.3);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+    color: var(--mint); text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--mint);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300; line-height: 1.05;
+    color: #fff; letter-spacing: -1px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--mint);
+  }
+  .hero-sub {
+    font-size: 16px; font-weight: 300; line-height: 1.7;
+    color: rgba(255,255,255,0.65); max-width: 440px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--mint); color: var(--deep-green);
+    border-radius: 100px; padding: 16px 32px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: #c5e4c5; transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px; padding: 16px 32px;
+    font-size: 15px; font-weight: 400;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .phone-mockup {
+    width: 260px; height: 520px;
+    background: linear-gradient(160deg, #2d5a1b 0%, #1a3a0f 100%);
+    border-radius: 40px;
+    border: 2px solid rgba(178,216,178,0.2);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(178,216,178,0.1);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px;
+    position: relative; overflow: hidden;
+  }
+  .phone-mockup::before {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 24px;
+    background: #1a3a0f; border-radius: 0 0 16px 16px;
+  }
+  .phone-screen-logo {
+    width: 80px; height: 80px;
+    background: rgba(178,216,178,0.15);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(178,216,178,0.2);
+  }
+  .phone-screen-logo img { width: 56px; height: 56px; object-fit: contain; }
+  .phone-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: #fff;
+    letter-spacing: 1px;
+  }
+  .phone-sub { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+  .phone-btn {
+    background: var(--mint); color: var(--deep-green);
+    border-radius: 100px; padding: 12px 32px;
+    font-size: 13px; font-weight: 500;
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .phone-decoration {
+    position: absolute;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,124,46,0.3), transparent);
+  }
+  .phone-decoration.top { top: -30px; right: -30px; }
+  .phone-decoration.bottom { bottom: -30px; left: -30px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--cream);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid rgba(45,90,27,0.1);
+  }
+  .stat-item {
+    padding: 40px 48px;
+    border-right: 1px solid rgba(45,90,27,0.1);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 300;
+    color: var(--deep-green); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); letter-spacing: 0.3px; }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 120px 48px;
+    background: var(--off-white);
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 500; letter-spacing: 2px;
+    color: var(--light-green); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300; line-height: 1.15;
+    color: var(--deep-green); margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--text-muted);
+    line-height: 1.7; max-width: 480px; margin-bottom: 64px;
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 24px; padding: 40px 32px;
+    border: 1px solid rgba(45,90,27,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--mint), var(--sage));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(26,58,15,0.08); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--mint), var(--sage));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 24px;
+  }
+  .feature-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400;
+    color: var(--deep-green); margin-bottom: 12px;
+  }
+  .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 120px 48px;
+    background: var(--deep-green);
+    position: relative; overflow: hidden;
+  }
+  .how::before {
+    content: '';
+    position: absolute; top: -50%; right: -20%;
+    width: 60vw; height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,124,46,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .how .section-tag { color: var(--mint); }
+  .how .section-title { color: #fff; }
+  .how .section-sub { color: rgba(255,255,255,0.6); }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 40px; position: relative; z-index: 2;
+  }
+  .step {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; font-weight: 300; line-height: 1;
+    color: rgba(178,216,178,0.2);
+  }
+  .step-content {}
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 400; color: #fff;
+    margin-bottom: 12px;
+  }
+  .step p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  /* ── K-BEAUTY + AU BEAUTY ── */
+  .dual {
+    padding: 120px 48px;
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .dual-text .section-sub { margin-bottom: 40px; }
+  .dual-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+  }
+  .badge-kr { background: rgba(45,90,27,0.1); color: var(--deep-green); }
+  .badge-au { background: rgba(178,216,178,0.3); color: var(--mid-green); }
+  .dual-visual {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .dual-card {
+    border-radius: 20px; padding: 32px 24px;
+    aspect-ratio: 1;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+  }
+  .dual-card.kr { background: linear-gradient(160deg, var(--mid-green), var(--deep-green)); }
+  .dual-card.au { background: linear-gradient(160deg, var(--sage), var(--mid-green)); }
+  .dual-card.kr2 { background: linear-gradient(160deg, #3d7a24, var(--mid-green)); margin-top: 24px; }
+  .dual-card.au2 { background: linear-gradient(160deg, var(--mint), var(--sage)); margin-top: -24px; }
+  .dual-card-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 4px;
+  }
+  .dual-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; color: #fff;
+  }
+
+  /* ── DOWNLOAD ── */
+  .download {
+    padding: 120px 48px;
+    background: var(--off-white);
+    text-align: center;
+  }
+  .download .section-title { margin: 0 auto 16px; }
+  .download .section-sub { margin: 0 auto 48px; text-align: center; }
+  .download-buttons {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  }
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--deep-green); color: #fff;
+    border-radius: 16px; padding: 16px 28px;
+    text-decoration: none; transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .store-btn:hover { background: var(--mid-green); transform: translateY(-2px); }
+  .store-btn.outline {
+    background: transparent; color: var(--deep-green);
+    border-color: rgba(45,90,27,0.3);
+  }
+  .store-btn.outline:hover { background: rgba(45,90,27,0.05); }
+  .store-icon { font-size: 28px; }
+  .store-text-small { font-size: 10px; opacity: 0.7; letter-spacing: 0.5px; }
+  .store-text-big { font-size: 17px; font-weight: 500; }
+  .coming-soon-tag {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    letter-spacing: 1px; color: var(--sage);
+    background: rgba(143,173,110,0.15); border-radius: 100px;
+    padding: 4px 12px; margin-top: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep-green);
+    padding: 60px 48px 40px;
+  }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(178,216,178,0.1);
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .footer-logo img { height: 32px; filter: brightness(0) invert(1); opacity: 0.9; }
+  .footer-logo span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; color: #fff; letter-spacing: 0.5px;
+  }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.45); max-width: 220px; line-height: 1.6; }
+  .footer-links { display: flex; gap: 64px; }
+  .footer-col h4 {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 20px; font-weight: 500;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a {
+    font-size: 13px; color: rgba(255,255,255,0.65);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--mint); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copyright { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-legal { display: flex; gap: 24px; }
+  .footer-legal a {
+    font-size: 12px; color: rgba(255,255,255,0.35);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-legal a:hover { color: rgba(255,255,255,0.65); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 60px; gap: 48px; }
+    .hero-visual { order: -1; }
+    .phone-mockup { width: 200px; height: 400px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(45,90,27,0.1); padding: 32px 20px; }
+    .features, .how, .dual, .download { padding: 80px 20px; }
+    .features-grid, .steps-grid { grid-template-columns: 1fr; }
+    .dual { grid-template-columns: 1fr; gap: 48px; }
+    .dual-visual { display: none; }
+    footer { padding: 48px 20px 32px; }
+    .footer-top { flex-direction: column; gap: 40px; }
+    .footer-links { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="assets/logo.png" alt="Glo-b logo" onerror="this.style.display='none'">
+    <span>Glo-b</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <a href="#download" class="nav-cta">Download App</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">K-Beauty × Australian Beauty</div>
+    <h1>Skin <em>Intelligence</em>,<br>Redefined.</h1>
+    <p class="hero-sub">AI-powered skin analysis that bridges K-Beauty wisdom and Australian beauty — personalised product recommendations, ingredient safety, and more.</p>
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">
+        Download Free
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#features" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="phone-mockup">
+      <div class="phone-decoration top"></div>
+      <div class="phone-decoration bottom"></div>
+      <div class="phone-screen-logo">
+        <img src="assets/logo.png" alt="Glo-b" onerror="this.style.display='none'">
+      </div>
+      <div class="phone-title">Glo-b</div>
+      <div class="phone-sub">Skin Intelligence</div>
+      <button class="phone-btn">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-number">149+</div>
+    <div class="stat-label">Curated K-Beauty & AU Beauty products</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">AI</div>
+    <div class="stat-label">Powered skin analysis in seconds</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">2</div>
+    <div class="stat-label">Languages — Korean & English</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-tag">What We Offer</div>
+  <h2 class="section-title">Everything your skin<br>needs, in one place</h2>
+  <p class="section-sub">From AI-powered analysis to ingredient safety checks — Glo-b gives you the tools to make smarter skincare decisions.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📷</div>
+      <h3>AI Skin Analysis</h3>
+      <p>Take a photo and let our AI analyse your skin type, concerns, and recommend the best products for you — in seconds.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Ingredient Scanner</h3>
+      <p>Check any ingredient's safety rating based on MFDS, TGA, and EU CosIng databases. Know exactly what's in your products.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⭐</div>
+      <h3>Skin-Type Rankings</h3>
+      <p>Discover top-rated products for your specific skin type, backed by real user reviews and community ratings.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌿</div>
+      <h3>K-Beauty Meets AU Beauty</h3>
+      <p>Uniquely curated selection bridging Korean skincare innovation with the best of Australian natural beauty brands.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>Personalised Survey</h3>
+      <p>Not sure about the camera? Answer 5 quick questions and get tailored recommendations based on your lifestyle and goals.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌏</div>
+      <h3>Bilingual Support</h3>
+      <p>Fully available in Korean and English — automatically adapts to your device language for a seamless experience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-tag">Simple Process</div>
+  <h2 class="section-title" style="color:#fff; margin-bottom:16px;">Three steps to<br><em style="color:var(--mint)">better skin</em></h2>
+  <p class="section-sub">No complicated routines. Just smart, personalised guidance.</p>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3>Analyse Your Skin</h3>
+        <p>Take a selfie or complete our quick survey. Our AI identifies your skin type, tone, and key concerns in seconds.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3>Discover Products</h3>
+        <p>Get personalised product recommendations from our curated selection of K-Beauty and Australian beauty brands.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3>Shop with Confidence</h3>
+        <p>Check ingredient safety, read community reviews, and shop directly through our trusted retail partners.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL BEAUTY -->
+<section class="dual">
+  <div class="dual-text">
+    <div class="section-tag">Our Unique Approach</div>
+    <h2 class="section-title">The best of two<br>beauty worlds</h2>
+    <p class="section-sub">Glo-b is the only app that brings together K-Beauty's cutting-edge formulations with Australia's clean, natural beauty traditions.</p>
+    <div class="dual-badges">
+      <span class="badge badge-kr">🇰🇷 K-Beauty Expertise</span>
+      <span class="badge badge-au">🇦🇺 Australian Naturals</span>
+    </div>
+  </div>
+  <div class="dual-visual">
+    <div>
+      <div class="dual-card kr">
+        <div class="dual-card-label">K-Beauty</div>
+        <div class="dual-card-title">Advanced Formulation</div>
+      </div>
+      <div class="dual-card kr2">
+        <div class="dual-card-label">Innovation</div>
+        <div class="dual-card-title">Skin Science</div>
+      </div>
+    </div>
+    <div>
+      <div class="dual-card au">
+        <div class="dual-card-label">AU Beauty</div>
+        <div class="dual-card-title">Natural Ingredients</div>
+      </div>
+      <div class="dual-card au2">
+        <div class="dual-card-label">Clean Beauty</div>
+        <div class="dual-card-title" style="color:var(--deep-green)">Sustainable</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="download">
+  <div class="section-tag" style="display:block; text-align:center;">Available Now</div>
+  <h2 class="section-title">Start your skin<br>intelligence journey</h2>
+  <p class="section-sub">Free to download. No subscription required. Start discovering better skincare today.</p>
+  <div class="download-buttons">
+    <a href="#" class="store-btn">
+      <span class="store-icon">🍎</span>
+      <div>
+        <div class="store-text-small">DOWNLOAD ON THE</div>
+        <div class="store-text-big">App Store</div>
+      </div>
+    </a>
+    <a href="#" class="store-btn outline">
+      <span class="store-icon">🤖</span>
+      <div>
+        <div class="store-text-small">COMING SOON ON</div>
+        <div class="store-text-big" style="color:var(--deep-green)">Google Play</div>
+      </div>
+    </a>
+  </div>
+  <div class="coming-soon-tag">iOS Available · Android Coming Soon</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">
+        <img src="assets/logo.png" alt="Glo-b">
+        <span>Glo-b</span>
+      </div>
+      <p class="footer-tagline">Skin Intelligence, Redefined. K-Beauty meets Australian Beauty.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>App</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#download">Download</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:support@glo-b.app">support@glo-b.app</a></li>
+          <li><a href="mailto:privacy@glo-b.app">privacy@glo-b.app</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copyright">© 2026 Glo-b. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

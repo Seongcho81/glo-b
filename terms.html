@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Glo-b</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --deep-green: #1a3a0f; --mid-green: #2d5a1b;
+    --mint: #b2d8b2; --cream: #f5f0e8; --off-white: #faf7f2;
+    --text-dark: #1a1a1a; --text-muted: #6b6b5e;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-dark); }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(250,247,242,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(45,90,27,0.08);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo span { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--deep-green); }
+  .nav-back { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-back:hover { color: var(--deep-green); }
+  .lang-toggle { display: flex; gap: 8px; }
+  .lang-btn { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid rgba(45,90,27,0.2); cursor: pointer; background: transparent; color: var(--text-muted); font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .lang-btn.active { background: var(--deep-green); color: #fff; border-color: var(--deep-green); }
+  .hero-doc { background: var(--deep-green); padding: 140px 48px 80px; position: relative; overflow: hidden; }
+  .hero-doc::before { content: ''; position: absolute; top: -30%; right: -10%; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(74,124,46,0.2) 0%, transparent 70%); }
+  .doc-tag { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mint); background: rgba(178,216,178,0.1); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+  .hero-doc h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; color: #fff; line-height: 1.1; margin-bottom: 16px; }
+  .hero-doc p { font-size: 14px; color: rgba(255,255,255,0.5); }
+  .doc-body { max-width: 800px; margin: 0 auto; padding: 80px 48px 120px; }
+  .doc-section { margin-bottom: 56px; }
+  .doc-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: var(--deep-green); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(45,90,27,0.1); }
+  .doc-section h3 { font-size: 16px; font-weight: 500; color: var(--deep-green); margin: 24px 0 12px; }
+  .doc-section p { font-size: 15px; line-height: 1.8; color: #3a3a3a; margin-bottom: 16px; }
+  .doc-section ul { padding-left: 20px; margin-bottom: 16px; }
+  .doc-section ul li { font-size: 15px; line-height: 1.8; color: #3a3a3a; margin-bottom: 8px; }
+  .doc-section ul li::marker { color: var(--mid-green); }
+  .warning-box { background: rgba(201,123,123,0.08); border-left: 3px solid #c97b7b; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 24px 0; }
+  .warning-box p { margin: 0; font-size: 14px; color: #8b4a4a; font-weight: 500; }
+  .highlight-box { background: rgba(178,216,178,0.15); border-left: 3px solid var(--mint); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 24px 0; }
+  .highlight-box p { margin: 0; font-size: 14px; color: var(--text-muted); }
+  .contact-box { background: var(--deep-green); border-radius: 20px; padding: 40px; margin-top: 48px; }
+  .contact-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; margin-bottom: 16px; color: #fff; }
+  .contact-box a { color: var(--mint); text-decoration: none; }
+  .contact-box p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 8px; }
+  .lang-content { display: none; }
+  .lang-content.active { display: block; }
+  footer { background: var(--deep-green); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-copyright { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-legal { display: flex; gap: 24px; }
+  .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-legal a:hover { color: rgba(255,255,255,0.65); }
+  @media (max-width: 768px) { nav { padding: 16px 20px; } .hero-doc { padding: 110px 20px 60px; } .doc-body { padding: 48px 20px 80px; } footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back
+  </a>
+  <a href="index.html" class="nav-logo"><span>Glo-b</span></a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ko')">한국어</button>
+  </div>
+</nav>
+
+<div class="hero-doc">
+  <div class="doc-tag">Legal</div>
+  <h1 id="doc-title">Terms of Use</h1>
+  <p id="doc-updated">Last Updated: April 2026 | Effective Date: April 2026</p>
+</div>
+
+<div class="doc-body">
+
+  <!-- ENGLISH -->
+  <div class="lang-content active" id="content-en">
+    <div class="doc-section">
+      <h2>1. Acceptance of Terms</h2>
+      <p>Welcome to Glo-b. By downloading, installing, or using the Glo-b mobile application ("App"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, do not use the App.</p>
+      <p>These Terms constitute a legally binding agreement between you and Glo-b ("we", "our", "us"). These Terms should be read in conjunction with our Privacy Policy, which is incorporated by reference.</p>
+    </div>
+    <div class="doc-section">
+      <h2>2. Description of Service</h2>
+      <p>Glo-b provides:</p>
+      <ul>
+        <li>AI-based skin analysis using camera or uploaded photographs</li>
+        <li>Personalised skincare product recommendations based on skin analysis and survey responses</li>
+        <li>Ingredient safety information based on regulatory databases</li>
+        <li>Skincare product rankings and user reviews</li>
+        <li>Links to third-party retailers for product purchases</li>
+      </ul>
+      <p>All services are provided for general reference and informational purposes only.</p>
+    </div>
+    <div class="doc-section">
+      <h2>3. Medical and Health Disclaimer</h2>
+      <div class="warning-box"><p>IMPORTANT: Please read this section carefully.</p></div>
+      <p>3.1 The App does not provide medical advice. All skin analysis results, ingredient information, and product recommendations are for general reference purposes only and do not constitute medical advice, diagnosis, or treatment.</p>
+      <p>3.2 The AI skin analysis feature is not a medical device and has not been approved, registered, or listed by the Australian Therapeutic Goods Administration (TGA) or any other regulatory body as a medical device.</p>
+      <p>3.3 Always seek the advice of a qualified dermatologist or other healthcare professional with any questions you may have regarding a skin condition. Never disregard professional medical advice or delay seeking it because of information provided by this App.</p>
+      <p>3.4 If you experience skin irritation, allergic reactions, or any adverse effects after using products recommended by the App, discontinue use immediately and consult a medical professional.</p>
+    </div>
+    <div class="doc-section">
+      <h2>4. Ingredient Information Disclaimer</h2>
+      <p>4.1 Ingredient safety information provided in the App is based on publicly available data from:</p>
+      <ul>
+        <li>Ministry of Food and Drug Safety, Republic of Korea (MFDS)</li>
+        <li>Australian Therapeutic Goods Administration (TGA)</li>
+        <li>European Union CosIng Database</li>
+      </ul>
+      <p>4.2 Regulatory standards and ingredient classifications are subject to change. We make reasonable efforts to keep information current, but we cannot guarantee that all information reflects the most recent regulatory updates.</p>
+      <p>4.3 Individual reactions to cosmetic ingredients vary. An ingredient classified as "safe" in our database may still cause reactions in sensitive individuals. Always perform a patch test before using new products.</p>
+      <p>4.4 The App does not account for interactions between multiple ingredients or products used simultaneously.</p>
+    </div>
+    <div class="doc-section">
+      <h2>5. Limitation of Liability</h2>
+      <p>5.1 To the maximum extent permitted by applicable law, Glo-b and its affiliates, officers, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from:</p>
+      <ul>
+        <li>Your use of or inability to use the App</li>
+        <li>Any reliance on skin analysis results or product recommendations</li>
+        <li>Adverse reactions to products recommended by the App</li>
+        <li>Inaccuracies in ingredient safety information</li>
+        <li>Interruptions or errors in the service</li>
+      </ul>
+      <p>5.2 Our total liability to you for any claim arising from these Terms or the use of the App shall not exceed AUD $100.</p>
+      <p>5.3 Nothing in these Terms excludes or limits liability for death or personal injury caused by negligence, fraud, or any other liability that cannot be excluded under Australian Consumer Law.</p>
+    </div>
+    <div class="doc-section">
+      <h2>6. Australian Consumer Law</h2>
+      <p>Nothing in these Terms is intended to exclude, restrict, or modify any rights you may have under the Australian Consumer Law (ACL) as contained in Schedule 2 of the Competition and Consumer Act 2010 (Cth).</p>
+    </div>
+    <div class="doc-section">
+      <h2>7. Affiliate Links and Commercial Relationships</h2>
+      <div class="highlight-box"><p>In compliance with Australian Consumer Law and ACCC guidelines, we disclose our affiliate relationships.</p></div>
+      <p>7.1 The App may display links to third-party retailers ("Affiliate Links"). When you click an Affiliate Link and make a purchase, we may receive a commission from the retailer.</p>
+      <p>7.2 The existence of an affiliate relationship does not influence our product recommendations. Products are recommended based on skin analysis results and ingredient compatibility, not on the basis of commission rates.</p>
+      <p>7.3 Glo-b is not responsible for the content, accuracy, or privacy practices of third-party websites accessed through Affiliate Links.</p>
+    </div>
+    <div class="doc-section">
+      <h2>8. Intellectual Property</h2>
+      <p>8.1 The App, including all content, features, design, logos, trademarks, and software, is owned by Glo-b and protected by Australian and international intellectual property laws.</p>
+      <p>8.2 You are granted a limited, non-exclusive, non-transferable, revocable licence to use the App for personal, non-commercial purposes.</p>
+      <p>8.3 You must not copy, modify, distribute, reverse engineer, or use the App for any commercial purpose without written consent.</p>
+    </div>
+    <div class="doc-section">
+      <h2>9. User Conduct</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use the App for any unlawful purpose</li>
+        <li>Upload images of individuals other than yourself without their consent</li>
+        <li>Submit false, misleading, or harmful content</li>
+        <li>Attempt to circumvent any security features</li>
+        <li>Use automated tools to scrape or extract data from the App</li>
+      </ul>
+    </div>
+    <div class="doc-section">
+      <h2>10. Governing Law and Dispute Resolution</h2>
+      <p>10.1 These Terms are governed by the laws of New South Wales, Australia, without regard to conflict of law principles.</p>
+      <p>10.2 Any dispute arising from or in connection with these Terms shall first be attempted to be resolved through good faith negotiation. If not resolved within 30 days, the dispute shall be submitted to mediation in New South Wales before any legal proceedings are commenced.</p>
+      <p>10.3 You agree to the jurisdiction of the courts of New South Wales, Australia.</p>
+    </div>
+    <div class="doc-section">
+      <h2>11. Changes to Terms</h2>
+      <p>We may modify these Terms at any time. We will provide notice of material changes through the App or by email (if provided). Your continued use of the App after notification constitutes acceptance of the modified Terms.</p>
+    </div>
+    <div class="contact-box">
+      <h3>Contact Us</h3>
+      <p>Email: <a href="mailto:support@glo-b.app">support@glo-b.app</a></p>
+      <p>Website: <a href="https://www.glo-b.app/terms">www.glo-b.app/terms</a></p>
+    </div>
+  </div>
+
+  <!-- KOREAN -->
+  <div class="lang-content" id="content-ko">
+    <div class="doc-section">
+      <h2>제1조 (목적 및 적용)</h2>
+      <p>본 이용약관("약관")은 Glo-b("당사")가 제공하는 모바일 애플리케이션("앱") 이용에 관한 조건을 규정합니다. 앱을 다운로드, 설치 또는 이용함으로써 본 약관에 동의하게 됩니다.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제2조 (서비스 내용)</h2>
+      <ul>
+        <li>카메라 또는 업로드 사진을 활용한 AI 피부 분석</li>
+        <li>피부 분석 및 설문 응답 기반 맞춤형 스킨케어 제품 추천</li>
+        <li>규제 데이터베이스 기반 성분 안전도 정보 제공</li>
+        <li>피부타입별 제품 랭킹 및 사용자 리뷰</li>
+        <li>제품 구매를 위한 제3자 소매업체 링크</li>
+      </ul>
+      <p>모든 서비스는 일반 참고 및 정보 제공 목적으로만 제공됩니다.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제3조 (의료 및 건강 면책 조항)</h2>
+      <div class="warning-box"><p>중요: 본 조항을 주의 깊게 읽으십시오.</p></div>
+      <p>① 앱은 의학적 조언을 제공하지 않습니다. 모든 피부 분석 결과, 성분 정보 및 제품 추천은 일반 참고 목적이며 의학적 조언, 진단 또는 치료를 구성하지 않습니다.</p>
+      <p>② AI 피부 분석 기능은 의료기기가 아니며, 호주 TGA 또는 기타 규제 기관으로부터 의료기기로 승인·등록되지 않았습니다.</p>
+      <p>③ 피부 상태에 대한 질문이 있는 경우 항상 자격을 갖춘 피부과 의사 또는 의료 전문가의 조언을 구하십시오.</p>
+      <p>④ 앱에서 추천한 제품 사용 후 피부 자극, 알레르기 반응이 발생한 경우 즉시 사용을 중단하고 전문의와 상담하십시오.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제4조 (성분 정보 면책 조항)</h2>
+      <p>앱의 성분 안전도 정보는 다음 공개 데이터를 기반으로 합니다:</p>
+      <ul>
+        <li>대한민국 식품의약품안전처 (MFDS)</li>
+        <li>호주 TGA (Therapeutic Goods Administration)</li>
+        <li>유럽연합 CosIng 데이터베이스</li>
+      </ul>
+      <p>규제 기준은 수시로 변경될 수 있으며, 모든 정보가 최신 규정을 반영함을 보장할 수 없습니다. 신제품 사용 전 항상 패치 테스트를 실시하십시오.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제5조 (책임의 제한)</h2>
+      <p>관련 법률이 허용하는 최대 범위 내에서, 당사는 앱 이용으로 인해 발생하는 간접적·부수적 손해에 대해 책임을 지지 않습니다. 당사의 총 책임은 AUD $100을 초과하지 않습니다.</p>
+      <p>단, 과실로 인한 사망 또는 신체 상해, 호주 소비자법에 따라 배제할 수 없는 책임은 제외됩니다.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제6조 (제휴 링크 및 상업적 관계)</h2>
+      <div class="highlight-box"><p>ACCC 가이드라인 준수를 위해 제휴 관계를 공개합니다.</p></div>
+      <p>앱은 제3자 소매업체로의 링크를 표시할 수 있으며, 구매 시 당사에 수수료가 발생할 수 있습니다. 제휴 관계는 제품 추천의 객관성에 영향을 미치지 않습니다.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제7조 (지적재산권)</h2>
+      <p>앱의 모든 콘텐츠, 디자인, 로고, 소프트웨어는 Glo-b의 소유이며 호주 및 국제 지적재산권법에 의해 보호됩니다.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제8조 (이용자 행위 규정)</h2>
+      <ul>
+        <li>위법한 목적으로 앱 이용 금지</li>
+        <li>동의 없이 타인의 이미지 업로드 금지</li>
+        <li>허위, 오해를 유발하거나 해로운 콘텐츠 제출 금지</li>
+        <li>보안 기능 우회 시도 금지</li>
+        <li>자동화 도구를 이용한 데이터 스크래핑 금지</li>
+      </ul>
+    </div>
+    <div class="doc-section">
+      <h2>제9조 (준거법 및 분쟁 해결)</h2>
+      <p>본 약관은 호주 뉴사우스웨일스주 법률에 따라 규율됩니다. 분쟁 발생 시 먼저 선의의 협상을 시도하며, 30일 내 해결되지 않으면 뉴사우스웨일스주에서 조정에 회부됩니다.</p>
+    </div>
+    <div class="doc-section">
+      <h2>제10조 (약관 변경)</h2>
+      <p>당사는 언제든지 본 약관을 수정할 수 있으며, 중요한 변경사항은 앱 내 공지로 안내합니다.</p>
+    </div>
+    <div class="contact-box">
+      <h3>문의</h3>
+      <p>이메일: <a href="mailto:support@glo-b.app">support@glo-b.app</a></p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-copyright">© 2026 Glo-b. All rights reserved.</p>
+  <div class="footer-legal">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lang-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.getElementById(`content-${lang}`).classList.add('active');
+  document.getElementById('doc-title').textContent = lang === 'ko' ? '이용약관' : 'Terms of Use';
+  document.getElementById('doc-updated').textContent = lang === 'ko' ? '최종 업데이트: 2026년 4월 | 시행일: 2026년 4월' : 'Last Updated: April 2026 | Effective Date: April 2026';
+}
+</script>
+</body>
+</html>
