@@ -497,36 +497,26 @@
   }
   .store-buttons {
     display: flex;
-    gap: 16px;
+    gap: 14px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
   }
-  .store-badge {
+  .store-badge-link {
     display: inline-flex; align-items: center; justify-content: center;
-    height: 56px;
-    min-width: 178px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 0 20px;
     text-decoration: none;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
-  .store-badge:hover {
+  .store-badge-link:hover {
     transform: translateY(-2px);
     opacity: 0.92;
   }
-  .store-badge img {
+  .store-badge {
     height: 56px;
     width: auto;
     display: block;
+    border-radius: 10px;
   }
-  .store-badge-apple { background: #000; }
-  .store-badge-google { background: #34A853; }
-  .store-badge-apple img { height: 40px; }
-  .store-badge-google img { height: 56px; }
   .coming-soon-tag {
     display: inline-block; font-size: 11px; font-weight: 500;
     letter-spacing: 1px; color: var(--sage);
@@ -702,6 +692,7 @@
     .footer-bottom { flex-direction: column; align-items: flex-start; }
     .modal { padding: 24px 20px; border-radius: 18px; }
     .modal h3 { font-size: 28px; }
+    .store-badge { height: 48px; }
   }
 </style>
 </head>
@@ -960,11 +951,11 @@
     <a href="#" class="btn-primary js-open-survey" data-i18n="cta_main">Analyse My Skin</a>
   </div>
   <div class="store-buttons">
-    <a href="#" class="store-badge store-badge-apple js-open-preregister" data-store="ios" data-store-url="https://apps.apple.com/au/search?term=Glo-b" aria-label="Download on the App Store">
-      <span data-i18n="store_apple">Download on the App Store</span>
+    <a href="#" class="store-badge-link js-open-preregister" data-store="ios" data-store-url="https://apps.apple.com/au/search?term=Glo-b" aria-label="Download on the App Store">
+      <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge">
     </a>
-    <a href="#" class="store-badge store-badge-google js-open-preregister" data-store="android" data-store-url="https://play.google.com/store/search?q=Glo-b&c=apps" aria-label="Get it on Google Play">
-      <span data-i18n="store_google">Get it on Google Play</span>
+    <a href="#" class="store-badge-link js-open-preregister" data-store="android" data-store-url="https://play.google.com/store/search?q=Glo-b&c=apps" aria-label="Get it on Google Play">
+      <img src="assets/google-play-badge.svg" alt="Get it on Google Play" class="store-badge">
     </a>
   </div>
   <div class="coming-soon-tag" data-i18n="platform_status">iOS available. Android version in preparation.</div>
@@ -1200,8 +1191,6 @@
         download_tag: 'Available Now',
         download_title: 'Stop guessing.<br>Start analysing your skin.',
         download_subtitle: 'Get AI-powered skin analysis and personalised product matches built for your skin needs.',
-        store_apple: 'Download on the App Store',
-        store_google: 'Get it on Google Play',
         platform_status: 'iOS available. Android version in preparation.',
         prereg_kicker: 'Pre-registration',
         prereg_title: 'Get early access to Glo-b',
@@ -1319,8 +1308,6 @@
         download_tag: '지금 시작하기',
         download_title: '추측을 멈추고.<br>피부를 분석하세요.',
         download_subtitle: '내 피부 니즈에 맞춘 AI 피부 분석과 개인화된 제품 매칭을 시작해보세요.',
-        store_apple: 'App Store에서 다운로드',
-        store_google: 'Google Play에서 받기',
         platform_status: 'iOS 이용 가능. Android 버전은 준비 중입니다.',
         prereg_kicker: '사전 등록',
         prereg_title: 'Glo-b를 먼저 만나보세요',
