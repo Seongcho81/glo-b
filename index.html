@@ -506,8 +506,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 160px;
-    height: 48px;
+    height: 56px;
     text-decoration: none;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
@@ -515,15 +514,16 @@
     transform: translateY(-2px);
     opacity: 0.92;
   }
-  .store-badge-link img {
-    max-height: 48px;
-    max-width: 160px;
+  .store-badge-img {
+    height: 56px;
     width: auto;
-    height: auto;
+    display: block;
     object-fit: contain;
   }
-  .store-badge {
-    border-radius: 10px;
+  .google-play-badge {
+    height: 56px;
+    transform: scale(1.08);
+    transform-origin: center;
   }
   .coming-soon-tag {
     display: inline-block; font-size: 11px; font-weight: 500;
@@ -700,7 +700,12 @@
     .footer-bottom { flex-direction: column; align-items: flex-start; }
     .modal { padding: 24px 20px; border-radius: 18px; }
     .modal h3 { font-size: 28px; }
-    .store-badge { height: 48px; }
+    .store-badge-link { height: 48px; }
+    .store-badge-img { height: 48px; }
+    .google-play-badge {
+      height: 48px;
+      transform: scale(1.08);
+    }
   }
 </style>
 </head>
@@ -959,11 +964,11 @@
     <a href="#" class="btn-primary js-open-survey" data-i18n="cta_main">Analyse My Skin</a>
   </div>
   <div class="store-buttons">
-    <a href="#" class="store-badge-link js-open-preregister" data-store="ios" data-store-url="https://apps.apple.com/au/search?term=Glo-b" aria-label="Download on the App Store">
-      <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge">
+    <a href="#" class="store-badge-link app-store-link js-open-preregister" data-store="ios" data-store-url="https://apps.apple.com/au/search?term=Glo-b" aria-label="Download on the App Store">
+      <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge-img">
     </a>
-    <a href="#" class="store-badge-link js-open-preregister" data-store="android" data-store-url="https://play.google.com/store/search?q=Glo-b&c=apps" aria-label="Get it on Google Play">
-      <img src="assets/google-play-badge.png" alt="Get it on Google Play" class="store-badge">
+    <a href="#" class="store-badge-link google-play-link js-open-preregister" data-store="android" data-store-url="https://play.google.com/store/search?q=Glo-b&c=apps" aria-label="Get it on Google Play">
+      <img src="assets/google-play-badge.png" alt="Get it on Google Play" class="store-badge-img google-play-badge">
     </a>
   </div>
   <div class="coming-soon-tag" data-i18n="platform_status">iOS available. Android version in preparation.</div>
