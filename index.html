@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glo-b — Skin Intelligence, Redefined</title>
+<title>Glo-b — AI Skin Analysis and Product Matching</title>
  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -173,13 +174,46 @@
     background: #1a3a0f; border-radius: 0 0 16px 16px;
   }
   .phone-screen-logo {
-    width: 80px; height: 80px;
-    background: rgba(178,216,178,0.15);
-    border-radius: 24px;
+    width: 86px; height: 86px;
     display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(178,216,178,0.2);
   }
-  .phone-screen-logo img { width: 56px; height: 56px; object-fit: contain; }
+  .phone-app-icon {
+    width: 72px; height: 72px; border-radius: 16px;
+    background: linear-gradient(145deg, #f5f0e8 0%, #e8f0dc 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 18px 32px rgba(0,0,0,0.24), 0 0 0 1px rgba(255,255,255,0.34);
+  }
+  .phone-app-icon::before {
+    content: '';
+    position: absolute; top: 10%; right: 10%;
+    width: 50%; height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(178,216,178,0.5) 0%, transparent 70%);
+  }
+  .phone-app-icon .gb-wrap {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .phone-app-icon .gb-pill {
+    border: 1.4px solid #2d5a1b;
+    border-radius: 50%;
+    padding: 5px 7px 7px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 1px;
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(4px);
+  }
+  .phone-app-icon .gb-g,
+  .phone-app-icon .gb-b {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px; font-weight: 600;
+    color: #1a3a0f; line-height: 1;
+  }
+  .phone-app-icon .gb-line {
+    width: 14px; height: 1px;
+    background: #2d5a1b;
+  }
   .phone-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 28px; font-weight: 300; color: #fff;
@@ -265,11 +299,21 @@
   }
   .feature-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(26,58,15,0.08); }
   .feature-card:hover::before { opacity: 1; }
-  .feature-icon {
-    width: 52px; height: 52px; border-radius: 16px;
-    background: linear-gradient(135deg, var(--mint), var(--sage));
+  .icon-box {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: #34A853; color: #ffffff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; margin-bottom: 24px;
+    font-size: 22px; flex-shrink: 0;
+    box-shadow: 0 10px 24px rgba(26,58,15,0.14);
+  }
+  .icon-box i { color: #ffffff; }
+  .feature-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 24px;
+  }
+  .feature-icon svg {
+    width: 36px; height: 36px;
+    display: block;
   }
   .feature-card h3 {
     font-family: 'Cormorant Garamond', serif;
@@ -302,10 +346,8 @@
   .step {
     display: flex; flex-direction: column; gap: 20px;
   }
-  .step-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px; font-weight: 300; line-height: 1;
-    color: rgba(178,216,178,0.2);
+  .step-icon {
+    margin-bottom: 4px;
   }
   .step-content {}
   .step h3 {
@@ -329,6 +371,7 @@
     padding: 10px 20px; border-radius: 100px;
     font-size: 13px; font-weight: 500;
   }
+  .badge i { font-size: 13px; }
   .badge-kr { background: rgba(45,90,27,0.1); color: var(--deep-green); }
   .badge-au { background: rgba(178,216,178,0.3); color: var(--mid-green); }
   .dual-visual {
@@ -365,11 +408,30 @@
   .download-buttons {
     display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
   }
-  .store-badges { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .store-badge img { height: 54px; width: auto; transition: all 0.2s; border-radius: 10px; }
-  .store-badge img:hover { transform: translateY(-2px); opacity: 0.9; }
-  .store-badge-disabled { opacity: 0.5; cursor: not-allowed; }
-  .store-badge-disabled img:hover { transform: none; opacity: 0.5; }
+  .store-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .store-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 56px;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .store-badge:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+  .store-badge img {
+    height: 56px;
+    width: auto;
+    display: block;
+  }
+  .store-badge-apple img { height: 40px; }
+  .store-badge-google img { height: 56px; }
   .coming-soon-tag {
     display: inline-block; font-size: 11px; font-weight: 500;
     letter-spacing: 1px; color: var(--sage);
@@ -395,6 +457,10 @@
     font-size: 20px; font-weight: 400; color: #fff; letter-spacing: 0.5px;
   }
   .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.45); max-width: 220px; line-height: 1.6; }
+  .footer-disclaimer {
+    font-size: 12px; color: rgba(255,255,255,0.42);
+    line-height: 1.65; max-width: 760px; margin-bottom: 28px;
+  }
   .footer-links { display: flex; gap: 64px; }
   .footer-col h4 {
     font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
@@ -454,21 +520,21 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#download">Download</a></li>
   </ul>
-  <a href="#download" class="nav-cta">Download App</a>
+  <a href="#download" class="nav-cta">Analyse My Skin</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
     <div class="hero-eyebrow">K-Beauty × Australian Beauty</div>
-    <h1>Skin <em>Intelligence</em>,<br>Redefined.</h1>
-    <p class="hero-sub">AI-powered skin analysis that bridges K-Beauty wisdom and Australian beauty — personalised product recommendations, ingredient safety, and more.</p>
+    <h1>We don’t recommend skincare.<br><em>We analyse your skin.</em></h1>
+    <p class="hero-sub">AI-powered skin analysis that matches products to your skin — not trends, not marketing.<br><br>Built for Australian skin exposed to UV, dryness, sunscreen use and daily environmental stress.</p>
     <div class="hero-actions">
       <a href="#download" class="btn-primary">
-        Download Free
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Analyse My Skin
+        <i class="fa-solid fa-arrow-right"></i>
       </a>
-      <a href="#features" class="btn-secondary">Learn More</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -476,11 +542,19 @@
       <div class="phone-decoration top"></div>
       <div class="phone-decoration bottom"></div>
       <div class="phone-screen-logo">
-        <img src="assets/logo.png" alt="Glo-b" onerror="this.style.display='none'">
+        <div class="phone-app-icon" aria-label="Glo-b app icon option B">
+          <div class="gb-wrap">
+            <div class="gb-pill">
+              <div class="gb-g">g</div>
+              <div class="gb-line"></div>
+              <div class="gb-b">b</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="phone-title">Glo-b</div>
       <div class="phone-sub">Skin Intelligence</div>
-      <button class="phone-btn">Get Started</button>
+      <button class="phone-btn">Analyse My Skin</button>
     </div>
   </div>
 </section>
@@ -503,39 +577,78 @@
 
 <!-- FEATURES -->
 <section class="features" id="features">
-  <div class="section-tag">What We Offer</div>
-  <h2 class="section-title">Everything your skin<br>needs, in one place</h2>
-  <p class="section-sub">From AI-powered analysis to ingredient safety checks — Glo-b gives you the tools to make smarter skincare decisions.</p>
+  <div class="section-tag">Skin Analysis Platform</div>
+  <h2 class="section-title">Product matching starts<br>with your skin</h2>
+  <p class="section-sub">Glo-b analyses visible skin signals, selected concerns and ingredient context before showing products that better fit your needs.</p>
   <div class="features-grid">
     <div class="feature-card">
-      <div class="feature-icon">📷</div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="4" y="8" width="24" height="18" rx="3" fill="#2d5a1b"/>
+          <circle cx="16" cy="17" r="5" fill="white"/>
+          <circle cx="16" cy="17" r="3" fill="#2d5a1b"/>
+          <rect x="11" y="6" width="10" height="4" rx="1" fill="#2d5a1b"/>
+        </svg>
+      </div>
       <h3>AI Skin Analysis</h3>
-      <p>Take a photo and let our AI analyse your skin type, concerns, and recommend the best products for you — in seconds.</p>
+      <p>Take a photo or complete a short survey so Glo-b can identify visible skin signals and understand your selected skincare concerns.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">🔍</div>
-      <h3>Ingredient Scanner</h3>
-      <p>Check any ingredient's safety rating based on MFDS, TGA, and EU CosIng databases. Know exactly what's in your products.</p>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="12" fill="#2d5a1b"/>
+          <path d="M18.6 13.4L14.7 21L13.4 18.6L11 17.3L18.6 13.4Z" fill="white"/>
+          <circle cx="16" cy="16" r="2" fill="#2d5a1b"/>
+          <path d="M16 6v3M16 23v3M6 16h3M23 16h3" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Skin Needs Detection</h3>
+      <p>See likely skincare priorities such as hydration, barrier support, calming care or tone-evening, explained in simple language.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">⭐</div>
-      <h3>Skin-Type Rankings</h3>
-      <p>Discover top-rated products for your specific skin type, backed by real user reviews and community ratings.</p>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 4L19.4 11.2L27 12.1L21.4 17.4L22.8 25L16 21.3L9.2 25L10.6 17.4L5 12.1L12.6 11.2L16 4Z" fill="#2d5a1b"/>
+          <path d="M12.2 16.2L14.8 18.8L20 13.6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Product Match Score</h3>
+      <p>Compare products with a personalised match score based on your analysed skin condition, selected concerns and product context.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">🌿</div>
-      <h3>K-Beauty Meets AU Beauty</h3>
-      <p>Uniquely curated selection bridging Korean skincare innovation with the best of Australian natural beauty brands.</p>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="14" cy="14" r="9" fill="#2d5a1b"/>
+          <circle cx="14" cy="14" r="5" fill="white"/>
+          <circle cx="14" cy="14" r="3" fill="#2d5a1b"/>
+          <rect x="20" y="20" width="9" height="4" rx="2" transform="rotate(45 20 20)" fill="#2d5a1b"/>
+        </svg>
+      </div>
+      <h3>Ingredient Safety</h3>
+      <p>Review ingredient context and safety information so you can better understand what appears in the products you are considering.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <h3>Personalised Survey</h3>
-      <p>Not sure about the camera? Answer 5 quick questions and get tailored recommendations based on your lifestyle and goals.</p>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M25.5 6.5C16 6.4 8.7 11.3 8 20.3C7.8 23.1 9.9 25.2 12.7 25C21.7 24.3 26.6 17 25.5 6.5Z" fill="#2d5a1b"/>
+          <path d="M8.8 24.2C12 18.8 16.2 14.4 22.8 10.4" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M13.5 17.7C14.8 18 16.5 18.6 18.1 19.8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>K-Beauty × Australian Skin Environment</h3>
+      <p>Match K-beauty products to Australian skin realities including UV exposure, dryness, sunscreen use and daily environmental stress.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">🌏</div>
-      <h3>Bilingual Support</h3>
-      <p>Fully available in Korean and English — automatically adapts to your device language for a seamless experience.</p>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="8" y="4" width="16" height="24" rx="2" fill="#2d5a1b"/>
+          <rect x="11" y="10" width="10" height="2" rx="1" fill="white"/>
+          <rect x="11" y="14" width="10" height="2" rx="1" fill="white"/>
+          <rect x="11" y="18" width="7" height="2" rx="1" fill="white"/>
+        </svg>
+      </div>
+      <h3>Personal Match Results</h3>
+      <p>Instead of generic rankings, Glo-b shows products that better match your analysed skin condition and selected concerns.</p>
     </div>
   </div>
 </section>
@@ -543,28 +656,28 @@
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
   <div class="section-tag">Simple Process</div>
-  <h2 class="section-title" style="color:#fff; margin-bottom:16px;">Three steps to<br><em style="color:var(--mint)">better skin</em></h2>
-  <p class="section-sub">No complicated routines. Just smart, personalised guidance.</p>
+  <h2 class="section-title" style="color:#fff; margin-bottom:16px;">Three steps to<br><em style="color:var(--mint)">better matching</em></h2>
+  <p class="section-sub">Analyse your skin, understand what it needs, then compare products with clearer reasons.</p>
   <div class="steps-grid">
     <div class="step">
-      <div class="step-number">01</div>
+      <div class="step-icon icon-box"><i class="fa-solid fa-camera-retro"></i></div>
       <div class="step-content">
         <h3>Analyse Your Skin</h3>
-        <p>Take a selfie or complete our quick survey. Our AI identifies your skin type, tone, and key concerns in seconds.</p>
+        <p>Take a photo or complete a short survey. Glo-b identifies visible skin signals and your key skincare concerns.</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-number">02</div>
+      <div class="step-icon icon-box"><i class="fa-solid fa-chart-simple"></i></div>
       <div class="step-content">
-        <h3>Discover Products</h3>
-        <p>Get personalised product recommendations from our curated selection of K-Beauty and Australian beauty brands.</p>
+        <h3>Understand What Your Skin Needs</h3>
+        <p>Get a simple explanation of your likely skincare priorities, such as hydration, barrier support, calming care or tone-evening.</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-number">03</div>
+      <div class="step-icon icon-box"><i class="fa-solid fa-bag-shopping"></i></div>
       <div class="step-content">
-        <h3>Shop with Confidence</h3>
-        <p>Check ingredient safety, read community reviews, and shop directly through our trusted retail partners.</p>
+        <h3>Find Your Best Matches</h3>
+        <p>View matched products with reasons, ingredient context and trusted retailer links.</p>
       </div>
     </div>
   </div>
@@ -574,11 +687,11 @@
 <section class="dual">
   <div class="dual-text">
     <div class="section-tag">Our Unique Approach</div>
-    <h2 class="section-title">The best of two<br>beauty worlds</h2>
-    <p class="section-sub">Glo-b is the only app that brings together K-Beauty's cutting-edge formulations with Australia's clean, natural beauty traditions.</p>
+    <h2 class="section-title">K-beauty matched to<br>Australian skin realities</h2>
+    <p class="section-sub">Glo-b connects Korean skincare innovation with the everyday conditions Australian skin faces, from UV exposure and sunscreen layering to dryness and environmental stress.</p>
     <div class="dual-badges">
-      <span class="badge badge-kr">🇰🇷 K-Beauty Expertise</span>
-      <span class="badge badge-au">🇦🇺 Australian Naturals</span>
+      <span class="badge badge-kr"><i class="fa-solid fa-flask"></i> K-Beauty Expertise</span>
+      <span class="badge badge-au"><i class="fa-solid fa-seedling"></i> Australian Naturals</span>
     </div>
   </div>
   <div class="dual-visual">
@@ -605,27 +718,53 @@
   </div>
 </section>
 
+<!-- TRUST -->
+<section class="features" id="trust">
+  <div class="section-tag">Trust & Transparency</div>
+  <h2 class="section-title">No hidden rankings.<br>No guesswork.</h2>
+  <p class="section-sub">Glo-b is designed to help users make better skincare decisions. Product matches are based on skin analysis, ingredient context and selected skin concerns. Some retailer links may be affiliate links, but sponsored placement does not determine your match results.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon icon-box"><i class="fa-solid fa-lock"></i></div>
+      <h3>Analysis-first product matching</h3>
+      <p>Your match results start with your analysed skin condition and selected concerns, not generic popularity lists.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3>Ingredient context included</h3>
+      <p>Product information includes ingredient context to support clearer, more informed skincare decisions.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-box"><i class="fa-solid fa-scale-balanced"></i></div>
+      <h3>Affiliate transparency</h3>
+      <p>Retailer links may be affiliate links, but paid placement does not decide which products match your skin.</p>
+    </div>
+  </div>
+</section>
+
 <!-- DOWNLOAD -->
 <section class="download" id="download">
   <div class="section-tag" style="display:block; text-align:center;">Available Now</div>
-  <h2 class="section-title">Start your skin<br>intelligence journey</h2>
-  <p class="section-sub">Free to download. No subscription required. Start discovering better skincare today.</p>
-  <div class="store-badges">
-    <a href="#" class="store-badge">
+  <h2 class="section-title">Stop guessing.<br>Start analysing your skin.</h2>
+  <p class="section-sub">Get AI-powered skin analysis and personalised product matches built for your skin needs.</p>
+  <div class="download-buttons" style="margin-bottom:32px;">
+    <a href="#" class="btn-primary">Analyse My Skin</a>
+  </div>
+  <div class="store-buttons">
+    <a href="#" class="store-badge store-badge-apple" aria-label="Download on the App Store">
       <img 
-        src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" 
+        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
         alt="Download on the App Store"
       >
     </a>
-    <a href="#" class="store-badge store-badge-disabled" title="Coming Soon">
+    <a href="#" class="store-badge store-badge-google" aria-label="Get it on Google Play">
       <img 
-        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+        src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
         alt="Get it on Google Play"
-        style="height:54px;"
       >
     </a>
   </div>
-  <div class="coming-soon-tag">iOS Available · Android Coming Soon</div>
+  <div class="coming-soon-tag">iOS available. Android version in preparation.</div>
 </section>
 
 <!-- FOOTER -->
@@ -639,7 +778,7 @@
     <div style="font-size:9px; font-weight:300; color:#8fad6e; letter-spacing:1.5px; text-transform:uppercase; margin-top:2px;">glow your beauty</div>
   </div>
 </div>
-      <p class="footer-tagline">Skin Intelligence, Redefined. K-Beauty meets Australian Beauty.</p>
+      <p class="footer-tagline">AI skin analysis and product matching for Australian skin realities.</p>
     </div>
     <div class="footer-links">
       <div class="footer-col">
@@ -666,6 +805,7 @@
       </div>
     </div>
   </div>
+  <p class="footer-disclaimer">Glo-b provides cosmetic education and product matching only. It does not diagnose, treat or prevent medical skin conditions. For persistent irritation, acne, pigmentation changes or suspicious lesions, consult a qualified health professional.</p>
   <div class="footer-bottom">
     <p class="footer-copyright">© 2026 Glo-b. All rights reserved.</p>
     <div class="footer-legal">
