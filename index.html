@@ -439,6 +439,107 @@
     padding: 4px 12px; margin-top: 16px;
   }
 
+  /* ── MODALS ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 300;
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+    background: rgba(10,24,7,0.62);
+    backdrop-filter: blur(10px);
+  }
+  .modal-overlay.is-open { display: flex; }
+  .modal {
+    width: min(100%, 480px);
+    max-height: min(88vh, 760px);
+    overflow-y: auto;
+    background: var(--off-white);
+    border-radius: 20px;
+    border: 1px solid rgba(45,90,27,0.12);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+    padding: 28px;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 34px; height: 34px;
+    border-radius: 50%; border: 1px solid rgba(45,90,27,0.12);
+    background: #fff; color: var(--deep-green);
+    cursor: pointer; font-size: 18px; line-height: 1;
+  }
+  .modal-kicker {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.6px;
+    color: var(--light-green); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; line-height: 1.15;
+    color: var(--deep-green); margin-bottom: 10px;
+    padding-right: 34px;
+  }
+  .modal-copy {
+    font-size: 14px; line-height: 1.65;
+    color: var(--text-muted); margin-bottom: 22px;
+  }
+  .form-grid { display: grid; gap: 16px; }
+  .form-field { display: grid; gap: 8px; text-align: left; }
+  .form-field label {
+    font-size: 13px; font-weight: 600;
+    color: var(--deep-green);
+  }
+  .form-field input,
+  .form-field select {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid rgba(45,90,27,0.18);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--text-dark);
+    font: inherit;
+    font-size: 15px;
+    padding: 0 14px;
+  }
+  .consent-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 12px; line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .consent-row input { width: 18px; height: 18px; margin-top: 1px; flex: 0 0 auto; }
+  .consent-row a, .modal-copy a { color: var(--deep-green); font-weight: 600; }
+  .modal-submit {
+    width: 100%; min-height: 50px;
+    border: none; border-radius: 100px;
+    background: var(--deep-green); color: #fff;
+    font: inherit; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+  }
+  .modal-submit:hover:not(:disabled) { transform: translateY(-1px); }
+  .modal-submit:disabled { opacity: 0.42; cursor: not-allowed; }
+  .form-status {
+    min-height: 18px;
+    font-size: 12px; line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .form-status.is-error { color: #9b2c2c; }
+  .form-status.is-success { color: var(--mid-green); }
+  .survey-results { display: none; }
+  .survey-results.is-visible { display: block; }
+  .survey-summary {
+    background: #fff;
+    border: 1px solid rgba(45,90,27,0.1);
+    border-radius: 16px;
+    padding: 18px;
+    margin: 18px 0;
+    text-align: left;
+  }
+  .survey-summary p {
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .survey-summary p:last-child { margin-bottom: 0; }
+
   /* ── FOOTER ── */
   footer {
     background: var(--deep-green);
@@ -501,6 +602,8 @@
     .footer-top { flex-direction: column; gap: 40px; }
     .footer-links { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .modal { padding: 24px 20px; border-radius: 18px; }
+    .modal h3 { font-size: 28px; }
   }
 </style>
 </head>
@@ -520,7 +623,7 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#download">Download</a></li>
   </ul>
-  <a href="#download" class="nav-cta">Analyse My Skin</a>
+  <a href="#" class="nav-cta js-open-survey">Analyse My Skin</a>
 </nav>
 
 <!-- HERO -->
@@ -530,7 +633,7 @@
     <h1>We don’t recommend skincare.<br><em>We analyse your skin.</em></h1>
     <p class="hero-sub">AI-powered skin analysis that matches products to your skin — not trends, not marketing.<br><br>Built for Australian skin exposed to UV, dryness, sunscreen use and daily environmental stress.</p>
     <div class="hero-actions">
-      <a href="#download" class="btn-primary">
+      <a href="#" class="btn-primary js-open-survey">
         Analyse My Skin
         <i class="fa-solid fa-arrow-right"></i>
       </a>
@@ -554,7 +657,7 @@
       </div>
       <div class="phone-title">Glo-b</div>
       <div class="phone-sub">Skin Intelligence</div>
-      <button class="phone-btn">Analyse My Skin</button>
+      <button class="phone-btn js-open-survey" type="button">Analyse My Skin</button>
     </div>
   </div>
 </section>
@@ -748,16 +851,16 @@
   <h2 class="section-title">Stop guessing.<br>Start analysing your skin.</h2>
   <p class="section-sub">Get AI-powered skin analysis and personalised product matches built for your skin needs.</p>
   <div class="download-buttons" style="margin-bottom:32px;">
-    <a href="#" class="btn-primary">Analyse My Skin</a>
+    <a href="#" class="btn-primary js-open-survey">Analyse My Skin</a>
   </div>
   <div class="store-buttons">
-    <a href="#" class="store-badge store-badge-apple" aria-label="Download on the App Store">
+    <a href="#" class="store-badge store-badge-apple js-open-preregister" data-store="ios" data-store-url="https://apps.apple.com/au/search?term=Glo-b" aria-label="Download on the App Store">
       <img 
         src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
         alt="Download on the App Store"
       >
     </a>
-    <a href="#" class="store-badge store-badge-google" aria-label="Get it on Google Play">
+    <a href="#" class="store-badge store-badge-google js-open-preregister" data-store="android" data-store-url="https://play.google.com/store/search?q=Glo-b&c=apps" aria-label="Get it on Google Play">
       <img 
         src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
         alt="Get it on Google Play"
@@ -766,6 +869,102 @@
   </div>
   <div class="coming-soon-tag">iOS available. Android version in preparation.</div>
 </section>
+
+<!-- PRE-REGISTRATION MODAL -->
+<div class="modal-overlay" id="preregister-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="preregister-title">
+    <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+    <div class="modal-kicker">Pre-registration</div>
+    <h3 id="preregister-title">Get early access to Glo-b</h3>
+    <p class="modal-copy">Join the list before opening the app store. We only collect the details needed to manage pre-registration and improve launch readiness.</p>
+    <form class="form-grid" id="preregister-form">
+      <input type="hidden" name="storeTarget" id="store-target" value="ios">
+      <input type="hidden" name="storeUrl" id="store-url" value="">
+      <div class="form-field">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select one</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="prefer_not_to_say">Prefer not to say</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="age-group">Age group</label>
+        <select id="age-group" name="ageGroup" required>
+          <option value="">Select one</option>
+          <option value="18-24">18–24</option>
+          <option value="25-34">25–34</option>
+          <option value="35-44">35–44</option>
+          <option value="45+">45+</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <label class="consent-row">
+        <input id="privacy-consent" name="privacyConsent" type="checkbox" required>
+        <span>I agree to the collection and use of my personal data in accordance with the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+      </label>
+      <p class="modal-copy" style="margin-bottom:0;">Glo-b provides cosmetic guidance only and does not provide medical advice.</p>
+      <button class="modal-submit" id="preregister-submit" type="submit" disabled>Continue</button>
+      <div class="form-status" id="preregister-status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<!-- SKIN SURVEY MODAL -->
+<div class="modal-overlay" id="survey-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="survey-title">
+    <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+    <div class="modal-kicker">Skin survey</div>
+    <div id="survey-form-panel">
+      <h3 id="survey-title">Start with a quick skin check</h3>
+      <p class="modal-copy">Answer three quick questions. This is a simple cosmetic guide, not a diagnosis.</p>
+      <form class="form-grid" id="skin-survey-form">
+        <div class="form-field">
+          <label for="skin-concern">Main skin concern</label>
+          <select id="skin-concern" name="skinConcern" required>
+            <option value="">Select one</option>
+            <option value="dryness">Dryness</option>
+            <option value="pigmentation">Pigmentation</option>
+            <option value="sensitivity">Sensitivity</option>
+            <option value="acne">Acne</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="skin-type">Self-reported skin type</label>
+          <select id="skin-type" name="skinType" required>
+            <option value="">Select one</option>
+            <option value="dry">Dry</option>
+            <option value="oily">Oily</option>
+            <option value="combination">Combination</option>
+            <option value="normal">Normal</option>
+            <option value="not_sure">Not sure</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="sensitivity-level">Sensitivity level</label>
+          <select id="sensitivity-level" name="sensitivityLevel" required>
+            <option value="">Select one</option>
+            <option value="low">Low</option>
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <p class="modal-copy" style="margin-bottom:0;">Glo-b provides cosmetic guidance only and does not provide medical advice.</p>
+        <button class="modal-submit" type="submit">Show my summary</button>
+      </form>
+    </div>
+    <div class="survey-results" id="survey-results">
+      <h3>Your skin summary</h3>
+      <p class="modal-copy">This is a simple starting point based on your answers. Open the app for the full analysis and product matching flow.</p>
+      <div class="survey-summary" id="survey-summary"></div>
+      <button class="modal-submit js-result-preregister" type="button">See full analysis in the app</button>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -815,5 +1014,168 @@
   </div>
 </footer>
 
+<script>
+  (() => {
+    const preregisterModal = document.getElementById('preregister-modal');
+    const surveyModal = document.getElementById('survey-modal');
+    const preregisterForm = document.getElementById('preregister-form');
+    const preregisterSubmit = document.getElementById('preregister-submit');
+    const preregisterStatus = document.getElementById('preregister-status');
+    const consent = document.getElementById('privacy-consent');
+    const storeTarget = document.getElementById('store-target');
+    const storeUrl = document.getElementById('store-url');
+    const surveyForm = document.getElementById('skin-survey-form');
+    const surveyFormPanel = document.getElementById('survey-form-panel');
+    const surveyResults = document.getElementById('survey-results');
+    const surveySummary = document.getElementById('survey-summary');
+    let latestSurvey = null;
+
+    const labels = {
+      dryness: 'dryness',
+      pigmentation: 'pigmentation',
+      sensitivity: 'sensitivity',
+      acne: 'acne',
+      dry: 'dry',
+      oily: 'oily',
+      combination: 'combination',
+      normal: 'normal',
+      not_sure: 'not sure',
+      low: 'low',
+      moderate: 'moderate',
+      high: 'high'
+    };
+
+    const openModal = (modal) => {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModals = () => {
+      document.querySelectorAll('.modal-overlay').forEach((modal) => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      });
+      document.body.style.overflow = '';
+    };
+
+    const openPreregister = ({ target = 'ios', url = '' } = {}) => {
+      storeTarget.value = target;
+      storeUrl.value = url;
+      preregisterStatus.textContent = '';
+      preregisterStatus.className = 'form-status';
+      openModal(preregisterModal);
+      setTimeout(() => document.getElementById('email').focus(), 50);
+    };
+
+    document.querySelectorAll('.js-open-preregister').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        openPreregister({
+          target: button.dataset.store || 'ios',
+          url: button.dataset.storeUrl || button.href
+        });
+      });
+    });
+
+    document.querySelectorAll('.js-open-survey').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        surveyForm.reset();
+        surveyFormPanel.style.display = 'block';
+        surveyResults.classList.remove('is-visible');
+        openModal(surveyModal);
+      });
+    });
+
+    document.querySelectorAll('[data-close-modal]').forEach((button) => {
+      button.addEventListener('click', closeModals);
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach((overlay) => {
+      overlay.addEventListener('click', (event) => {
+        if (event.target === overlay) closeModals();
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeModals();
+    });
+
+    consent.addEventListener('change', () => {
+      preregisterSubmit.disabled = !consent.checked;
+    });
+
+    surveyForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(surveyForm);
+      latestSurvey = {
+        skinConcern: formData.get('skinConcern'),
+        skinType: formData.get('skinType'),
+        sensitivityLevel: formData.get('sensitivityLevel')
+      };
+      surveySummary.innerHTML = `
+        <p><strong>Main concern:</strong> ${labels[latestSurvey.skinConcern]}</p>
+        <p><strong>Skin type:</strong> ${labels[latestSurvey.skinType]}</p>
+        <p><strong>Sensitivity:</strong> ${labels[latestSurvey.sensitivityLevel]}</p>
+        <p>Based on this, Glo-b would start by looking for products that match your stated concern, skin type and sensitivity profile.</p>
+      `;
+      surveyFormPanel.style.display = 'none';
+      surveyResults.classList.add('is-visible');
+    });
+
+    document.querySelector('.js-result-preregister').addEventListener('click', () => {
+      closeModals();
+      openPreregister({
+        target: 'ios',
+        url: 'https://apps.apple.com/au/search?term=Glo-b'
+      });
+    });
+
+    preregisterForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!consent.checked) return;
+
+      preregisterSubmit.disabled = true;
+      preregisterStatus.className = 'form-status';
+      preregisterStatus.textContent = 'Submitting...';
+
+      const formData = new FormData(preregisterForm);
+      const payload = {
+        gender: formData.get('gender'),
+        ageGroup: formData.get('ageGroup'),
+        email: formData.get('email'),
+        privacyConsent: consent.checked,
+        storeTarget: formData.get('storeTarget'),
+        source: 'homepage',
+        survey: latestSurvey
+      };
+
+      try {
+        const response = await fetch('/api/preregister', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error('Submission failed');
+
+        preregisterStatus.className = 'form-status is-success';
+        preregisterStatus.textContent = 'Thanks. Redirecting...';
+
+        const redirectUrl = formData.get('storeUrl');
+        if (redirectUrl) {
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 500);
+        }
+      } catch (error) {
+        preregisterStatus.className = 'form-status is-error';
+        preregisterStatus.textContent = 'We could not submit your details right now. Please try again soon.';
+        preregisterSubmit.disabled = !consent.checked;
+      }
+    });
+  })();
+</script>
 </body>
 </html>
