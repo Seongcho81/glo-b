@@ -506,7 +506,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 56px;
+    height: 54px;
+    min-width: 170px;
     text-decoration: none;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
@@ -515,14 +516,17 @@
     opacity: 0.92;
   }
   .store-badge-img {
-    height: 56px;
+    height: 54px;
     width: auto;
     display: block;
     object-fit: contain;
   }
+  .app-store-badge {
+    height: 52px;
+  }
   .google-play-badge {
-    height: 56px;
-    transform: scale(1.08);
+    height: 54px;
+    transform: scale(1.04);
     transform-origin: center;
   }
   .coming-soon-tag {
@@ -599,6 +603,27 @@
   }
   .consent-row input { width: 18px; height: 18px; margin-top: 1px; flex: 0 0 auto; }
   .consent-row a, .modal-copy a { color: var(--deep-green); font-weight: 600; }
+  .data-notice {
+    background: rgba(143,173,110,0.12);
+    border: 1px solid rgba(45,90,27,0.1);
+    border-radius: 14px;
+    padding: 14px;
+    text-align: left;
+  }
+  .data-notice p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .data-notice p:last-child { margin-bottom: 0; }
+  .form-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+  }
+  .form-links a { color: var(--deep-green); font-weight: 600; }
   .modal-submit {
     width: 100%; min-height: 50px;
     border: none; border-radius: 100px;
@@ -700,11 +725,12 @@
     .footer-bottom { flex-direction: column; align-items: flex-start; }
     .modal { padding: 24px 20px; border-radius: 18px; }
     .modal h3 { font-size: 28px; }
-    .store-badge-link { height: 48px; }
+    .store-badge-link { height: 48px; min-width: 150px; }
     .store-badge-img { height: 48px; }
+    .app-store-badge { height: 46px; }
     .google-play-badge {
       height: 48px;
-      transform: scale(1.08);
+      transform: scale(1.04);
     }
   }
 </style>
@@ -965,9 +991,9 @@
   </div>
   <div class="store-buttons">
     <a href="#" class="store-badge-link app-store-link js-open-preregister" data-store="ios" data-store-url="https://apps.apple.com/au/search?term=Glo-b" aria-label="Download on the App Store">
-      <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge-img">
+      <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge-img app-store-badge">
     </a>
-    <a href="#" class="store-badge-link google-play-link js-open-preregister" data-store="android" data-store-url="https://play.google.com/store/search?q=Glo-b&c=apps" aria-label="Get it on Google Play">
+    <a href="#" class="store-badge-link google-play-link js-open-preregister" data-store="android" data-store-url="" aria-label="Get it on Google Play">
       <img src="assets/google-play-badge.png" alt="Get it on Google Play" class="store-badge-img google-play-badge">
     </a>
   </div>
@@ -984,35 +1010,53 @@
     <form class="form-grid" id="preregister-form">
       <input type="hidden" name="storeTarget" id="store-target" value="ios">
       <input type="hidden" name="storeUrl" id="store-url" value="">
+      <input type="hidden" name="sourceButton" id="source-button" value="homepage">
       <div class="form-field">
         <label for="gender" data-i18n="label_gender">Gender</label>
-        <select id="gender" name="gender" required>
+        <select id="gender" name="gender">
           <option value="" data-i18n="option_select">Select one</option>
-          <option value="male" data-i18n="gender_male">Male</option>
           <option value="female" data-i18n="gender_female">Female</option>
+          <option value="male" data-i18n="gender_male">Male</option>
           <option value="prefer_not_to_say" data-i18n="gender_prefer_not">Prefer not to say</option>
         </select>
       </div>
       <div class="form-field">
         <label for="age-group" data-i18n="label_age">Age group</label>
-        <select id="age-group" name="ageGroup" required>
+        <select id="age-group" name="age_group">
           <option value="" data-i18n="option_select">Select one</option>
-          <option value="18-24">18–24</option>
-          <option value="25-34">25–34</option>
-          <option value="35-44">35–44</option>
-          <option value="45+">45+</option>
+          <option value="18-24" data-i18n="age_18_24">18–24</option>
+          <option value="25-34" data-i18n="age_25_34">25–34</option>
+          <option value="35-44" data-i18n="age_35_44">35–44</option>
+          <option value="45+" data-i18n="age_45_plus">45+</option>
         </select>
       </div>
       <div class="form-field">
         <label for="email" data-i18n="label_email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" required>
       </div>
+      <div class="data-notice">
+        <p data-i18n="data_storage_notice">Your registration details are securely stored in Glo-b’s protected database and used only to manage early access, launch updates and your selected communication preferences.</p>
+        <p data-i18n="data_deletion_notice">You can request deletion of your data at any time.</p>
+      </div>
       <label class="consent-row">
-        <input id="privacy-consent" name="privacyConsent" type="checkbox" required>
-        <span data-i18n="consent_text">I agree to the collection and use of my personal data in accordance with the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+        <input id="privacy-consent" name="privacy_consent" type="checkbox" required>
+        <span data-i18n="privacy_consent_text">[Required] I agree to the collection and use of my personal information for pre-registration, early access updates and launch notifications.</span>
       </label>
+      <label class="consent-row">
+        <input id="newsletter-consent" name="newsletter_consent" type="checkbox">
+        <span data-i18n="newsletter_consent_text">[Optional] I agree to receive skincare analysis content and the Glo-b newsletter.</span>
+      </label>
+      <label class="consent-row">
+        <input id="marketing-consent" name="marketing_consent" type="checkbox">
+        <span data-i18n="marketing_consent_text">[Optional] I agree to receive marketing and promotional communications, including events, partner offers and promotions.</span>
+      </label>
+      <div class="form-links">
+        <a href="privacy.html" target="_blank" rel="noopener" data-i18n="privacy_policy">Privacy Policy</a>
+        <!-- TODO: Replace placeholder with the data deletion request page when available. -->
+        <a href="#" data-i18n="request_data_deletion">Request data deletion</a>
+      </div>
       <p class="modal-copy" style="margin-bottom:0;" data-i18n="cosmetic_guidance">Glo-b provides cosmetic guidance only and does not provide medical advice.</p>
-      <button class="modal-submit" id="preregister-submit" type="submit" disabled data-i18n="continue_button">Continue</button>
+      <button class="modal-submit" id="preregister-submit" type="submit" disabled data-i18n="submit_early_access">Get Early Access</button>
       <div class="form-status" id="preregister-status" role="status" aria-live="polite"></div>
     </form>
   </div>
@@ -1126,8 +1170,11 @@
     const preregisterSubmit = document.getElementById('preregister-submit');
     const preregisterStatus = document.getElementById('preregister-status');
     const consent = document.getElementById('privacy-consent');
+    const newsletterConsent = document.getElementById('newsletter-consent');
+    const marketingConsent = document.getElementById('marketing-consent');
     const storeTarget = document.getElementById('store-target');
     const storeUrl = document.getElementById('store-url');
+    const sourceButton = document.getElementById('source-button');
     const surveyForm = document.getElementById('skin-survey-form');
     const surveyFormPanel = document.getElementById('survey-form-panel');
     const surveyResults = document.getElementById('survey-results');
@@ -1207,17 +1254,26 @@
         platform_status: 'iOS available. Android version in preparation.',
         prereg_kicker: 'Pre-registration',
         prereg_title: 'Get early access to Glo-b',
-        prereg_copy: 'Join the list before opening the app store. We only collect the details needed to manage pre-registration and improve launch readiness.',
+        prereg_copy: 'Join the list before opening the app store. We only collect the details needed to manage pre-registration, early access and your selected communication preferences.',
         label_gender: 'Gender',
         label_age: 'Age group',
-        label_email: 'Email',
+        label_email: 'Email address',
         option_select: 'Select one',
         gender_male: 'Male',
         gender_female: 'Female',
         gender_prefer_not: 'Prefer not to say',
-        consent_text: 'I agree to the collection and use of my personal data in accordance with the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.',
+        age_18_24: '18–24',
+        age_25_34: '25–34',
+        age_35_44: '35–44',
+        age_45_plus: '45+',
+        privacy_consent_text: '[Required] I agree to the collection and use of my personal information for pre-registration, early access updates and launch notifications.',
+        newsletter_consent_text: '[Optional] I agree to receive skincare analysis content and the Glo-b newsletter.',
+        marketing_consent_text: '[Optional] I agree to receive marketing and promotional communications, including events, partner offers and promotions.',
+        data_storage_notice: 'Your registration details are securely stored in Glo-b’s protected database and used only to manage early access, launch updates and your selected communication preferences.',
+        data_deletion_notice: 'You can request deletion of your data at any time.',
+        request_data_deletion: 'Request data deletion',
         cosmetic_guidance: 'Glo-b provides cosmetic guidance only and does not provide medical advice.',
-        continue_button: 'Continue',
+        submit_early_access: 'Get Early Access',
         survey_kicker: 'Skin survey',
         survey_title: 'Start with a quick skin check',
         survey_copy: 'Answer three quick questions. This is a simple cosmetic guide, not a diagnosis.',
@@ -1249,8 +1305,8 @@
         footer_disclaimer: 'Glo-b provides cosmetic education and product matching only. It does not diagnose, treat or prevent medical skin conditions. For persistent irritation, acne, pigmentation changes or suspicious lesions, consult a qualified health professional.',
         copyright: '© 2026 Glo-b. All rights reserved.',
         status_submitting: 'Submitting...',
-        status_success: 'Thanks. Redirecting...',
-        status_error: 'We could not submit your details right now. Please try again soon.',
+        status_success: 'You’re on the list. We’ll send you launch and early access updates based on your preferences.',
+        status_error: 'Please enter a valid email address and accept the required privacy consent.',
         summary_concern: 'Main concern:',
         summary_type: 'Skin type:',
         summary_sensitivity: 'Sensitivity:',
@@ -1324,17 +1380,26 @@
         platform_status: 'iOS 이용 가능. Android 버전은 준비 중입니다.',
         prereg_kicker: '사전 등록',
         prereg_title: 'Glo-b를 먼저 만나보세요',
-        prereg_copy: '앱 스토어로 이동하기 전에 사전 등록을 완료해주세요. 사전 등록 관리와 출시 준비에 필요한 정보만 수집합니다.',
+        prereg_copy: '앱 스토어로 이동하기 전에 사전 등록을 완료해주세요. 사전등록, 얼리 액세스 안내 및 선택하신 수신 동의에 필요한 정보만 수집합니다.',
         label_gender: '성별',
         label_age: '연령대',
-        label_email: '이메일',
+        label_email: '이메일 주소',
         option_select: '선택해주세요',
         gender_male: '남성',
         gender_female: '여성',
         gender_prefer_not: '응답하지 않음',
-        consent_text: '<a href="privacy.html" target="_blank" rel="noopener">개인정보 처리방침</a>에 따라 개인정보 수집 및 이용에 동의합니다.',
+        age_18_24: '18–24세',
+        age_25_34: '25–34세',
+        age_35_44: '35–44세',
+        age_45_plus: '45세 이상',
+        privacy_consent_text: '[필수] 사전등록, 얼리 액세스 안내 및 출시 알림을 위한 개인정보 수집 및 이용에 동의합니다.',
+        newsletter_consent_text: '[선택] 스킨케어 분석 콘텐츠와 Glo-b 뉴스레터 수신에 동의합니다.',
+        marketing_consent_text: '[선택] 이벤트, 제휴 혜택, 프로모션 등 마케팅 및 광고성 정보 수신에 동의합니다.',
+        data_storage_notice: '입력하신 사전등록 정보는 Glo-b의 보호된 데이터베이스에 안전하게 보관되며, 얼리 액세스 안내, 출시 소식 및 선택하신 수신 동의 목적에만 사용됩니다.',
+        data_deletion_notice: '언제든지 개인정보 삭제를 요청하실 수 있습니다.',
+        request_data_deletion: '개인정보 삭제 요청',
         cosmetic_guidance: 'Glo-b는 화장품 선택을 위한 참고 정보만 제공하며, 의학적 조언을 제공하지 않습니다.',
-        continue_button: '계속하기',
+        submit_early_access: '얼리 액세스 신청하기',
         survey_kicker: '피부 설문',
         survey_title: '간단한 피부 체크로 시작하세요',
         survey_copy: '세 가지 질문에 답해주세요. 이 결과는 진단이 아닌 화장품 선택을 돕는 참고 정보입니다.',
@@ -1366,8 +1431,8 @@
         footer_disclaimer: 'Glo-b는 화장품 교육과 제품 매칭을 위한 정보만 제공합니다. 의학적 피부 질환을 진단, 치료 또는 예방하지 않습니다. 지속적인 자극, 트러블, 색소 변화 또는 의심되는 병변이 있다면 자격을 갖춘 의료 전문가와 상담하세요.',
         copyright: '© 2026 Glo-b. 모든 권리 보유.',
         status_submitting: '제출 중입니다...',
-        status_success: '감사합니다. 이동 중입니다...',
-        status_error: '지금은 제출할 수 없습니다. 잠시 후 다시 시도해주세요.',
+        status_success: '사전등록이 완료되었습니다. 선택하신 수신 동의에 따라 출시 소식과 얼리 액세스 안내를 보내드리겠습니다.',
+        status_error: '유효한 이메일 주소를 입력하고 필수 개인정보 수집 및 이용에 동의해 주세요.',
         summary_concern: '주요 고민:',
         summary_type: '피부 타입:',
         summary_sensitivity: '민감도:',
@@ -1468,9 +1533,12 @@
       document.body.style.overflow = '';
     };
 
-    const openPreregister = ({ target = 'ios', url = '' } = {}) => {
+    const openPreregister = ({ target = 'ios', url = '', source = 'homepage' } = {}) => {
+      preregisterForm.reset();
       storeTarget.value = target;
       storeUrl.value = url;
+      sourceButton.value = source;
+      preregisterSubmit.disabled = true;
       preregisterStatus.textContent = '';
       preregisterStatus.className = 'form-status';
       openModal(preregisterModal);
@@ -1482,7 +1550,8 @@
         event.preventDefault();
         openPreregister({
           target: button.dataset.store || 'ios',
-          url: button.dataset.storeUrl || button.href
+          url: button.hasAttribute('data-store-url') ? button.dataset.storeUrl : button.href,
+          source: button.dataset.store ? `${button.dataset.store}_store_badge` : 'store_badge'
         });
       });
     });
@@ -1532,13 +1601,19 @@
       closeModals();
       openPreregister({
         target: 'ios',
-        url: 'https://apps.apple.com/au/search?term=Glo-b'
+        url: 'https://apps.apple.com/au/search?term=Glo-b',
+        source: 'survey_result_cta'
       });
     });
 
     preregisterForm.addEventListener('submit', async (event) => {
       event.preventDefault();
-      if (!consent.checked) return;
+      if (!preregisterForm.checkValidity() || !consent.checked) {
+        preregisterStatus.className = 'form-status is-error';
+        preregisterStatus.textContent = translations[currentLang].status_error;
+        preregisterForm.reportValidity();
+        return;
+      }
 
       preregisterSubmit.disabled = true;
       preregisterStatus.className = 'form-status';
@@ -1546,12 +1621,17 @@
 
       const formData = new FormData(preregisterForm);
       const payload = {
-        gender: formData.get('gender'),
-        ageGroup: formData.get('ageGroup'),
         email: formData.get('email'),
-        privacyConsent: consent.checked,
-        storeTarget: formData.get('storeTarget'),
-        source: 'homepage',
+        age_group: formData.get('age_group'),
+        gender: formData.get('gender'),
+        privacy_consent: consent.checked,
+        newsletter_consent: newsletterConsent.checked,
+        marketing_consent: marketingConsent.checked,
+        consent_timestamp: new Date().toISOString(),
+        language: currentLang,
+        source_page: window.location.pathname || 'homepage',
+        source_button: formData.get('sourceButton'),
+        store_target: formData.get('storeTarget'),
         survey: latestSurvey
       };
 
