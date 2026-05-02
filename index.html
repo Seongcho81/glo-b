@@ -668,7 +668,17 @@
     border-bottom: 1px solid rgba(178,216,178,0.1);
   }
   .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .footer-logo img { height: 32px; filter: brightness(0) invert(1); opacity: 0.9; }
+  .footer-mark {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(178,216,178,0.8);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--mint);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-weight: 600;
+    line-height: 1;
+    flex: 0 0 32px;
+  }
   .footer-logo span {
     font-family: 'Cormorant Garamond', serif;
     font-size: 20px; font-weight: 400; color: #fff; letter-spacing: 0.5px;
@@ -1116,7 +1126,7 @@
   <div class="footer-top">
     <div>
       <div class="footer-logo">
-  <img src="assets/logo.png" alt="Glo-b">
+  <div class="footer-mark" aria-hidden="true">gb</div>
   <div>
     <div style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; color:#fff; letter-spacing:0.5px;">Glo-b</div>
     <div style="font-size:9px; font-weight:300; color:#8fad6e; letter-spacing:1.5px; text-transform:uppercase; margin-top:2px;" data-i18n="brand_tagline">glow your beauty</div>
